@@ -8,10 +8,10 @@
 		"Sentree"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://github.com/Sentreee",
+		"sources": "https://github.com/Sentreee/backpackorganizer-1.21.1"
 	},
-	"license": "CC0-1.0",
+	"license": "MIT",
 	"icon": "assets/backpackorganizer/icon.png",
 	"environment": "*",
 	"entrypoints": {
@@ -20,13 +20,16 @@
 		],
 		"fabric-datagen": [
 			"net.sentree.backpackorganizer.BackpackorganizerDataGenerator"
+		],
+		"client": [
+			"net.sentree.backpackorganizer.BackpackorganizerClient"
 		]
 	},
 	"mixins": [
 		"backpackorganizer.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.18.4",
+		"fabricloader": ">=0.17.3",
 		"minecraft": "~1.21.1",
 		"java": ">=21",
 		"fabric-api": "*"
