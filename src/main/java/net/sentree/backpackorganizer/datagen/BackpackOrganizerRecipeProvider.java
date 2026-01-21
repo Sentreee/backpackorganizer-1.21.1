@@ -28,5 +28,15 @@ public class BackpackOrganizerRecipeProvider extends FabricRecipeProvider {
                 .input('O', Items.OBSIDIAN)
                 .criterion(hasItem(Items.OBSIDIAN), conditionsFromItem(Items.OBSIDIAN))
                 .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.STORAGEMANAGER_COPPER)
+                .pattern("CBC")
+                .pattern("C^C")
+                .pattern("CCC")
+                .input('^', ModItems.STORAGEMANAGER)
+                .input('C', Items.COPPER_INGOT)
+                .input('B', Items.COPPER_BLOCK)
+                .criterion(hasItem(ModItems.STORAGEMANAGER), conditionsFromItem(ModItems.STORAGEMANAGER))
+                .offerTo(exporter);
     }
 }

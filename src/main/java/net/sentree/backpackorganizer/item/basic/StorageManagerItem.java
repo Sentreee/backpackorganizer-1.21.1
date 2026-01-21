@@ -1,4 +1,4 @@
-package net.sentree.backpackorganizer.item.custom;
+package net.sentree.backpackorganizer.item.basic;
 
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.component.DataComponentTypes;
@@ -14,12 +14,18 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
-import net.sentree.backpackorganizer.item.ModItems;
 import net.sentree.backpackorganizer.util.ModTags;
 
 public class StorageManagerItem extends Item {
-    public StorageManagerItem(Settings settings) {
+    private final int slots;
+
+    public StorageManagerItem(Settings settings, int slots) {
         super(settings);
+        this.slots = Math.max(1, slots);
+    }
+
+    public int getSlots() {
+        return slots;
     }
 
     @Override
@@ -33,7 +39,8 @@ public class StorageManagerItem extends Item {
 
                 @Override
                 public Text getDisplayName() {
-                    return Text.translatable("item.backpackorganizer.storagemanager");
+                    // Title becomes the item name (ex: "Copper Storage Manager")
+                    return sp.getStackInHand(hand).getName();
                 }
 
                 @Override
@@ -49,20 +56,19 @@ public class StorageManagerItem extends Item {
     public static boolean isAllowedStoredItem(ItemStack stack) {
         if (stack.isEmpty()) return false;
 
-        // Never allow putting the organizer inside itself
-        if (stack.isOf(ModItems.STORAGEMANAGER)) return false;
+        // Never allow putting any Storage Manager tier inside itself
+        if (stack.getItem() instanceof StorageManagerItem) return false;
 
-        // Tag allowlist (your JSON)
+        // Tag allowlist
         if (stack.isIn(ModTags.Items.NBT_CONTAINER_ITEMS)) return true;
 
-        // Runtime support for Sophisticated Backpacks variants without hard dependency:
-        // sophisticatedbackpacks:backpack, copper_backpack, iron_backpack, ...
+        // Runtime support for Sophisticated Backpacks variants without hard dependency
         Identifier id = Registries.ITEM.getId(stack.getItem());
         if ("sophisticatedbackpacks".equals(id.getNamespace()) && id.getPath().endsWith("backpack")) {
             return true;
         }
 
-        // Vanilla-ish heuristics: items that obviously store contents via components
+        // Heuristics for vanilla-like containers
         return stack.contains(DataComponentTypes.CONTAINER)
                 || stack.contains(DataComponentTypes.BUNDLE_CONTENTS)
                 || stack.contains(DataComponentTypes.BLOCK_ENTITY_DATA);

@@ -21,5 +21,6 @@ public class BackpackOrganizerModelProvider extends FabricModelProvider {
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
         itemModelGenerator.register(ModItems.STORAGEMANAGER, Models.GENERATED);
+        itemModelGenerator.register(ModItems.STORAGEMANAGER_COPPER, Models.GENERATED);
     }
 }

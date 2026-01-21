@@ -1,3 +1,5 @@
-// 1.21.1	2026-01-20T14:53:47.8460903	backpackorganizer/Recipes
+// 1.21.1	2026-01-21T12:46:26.8190189	backpackorganizer/Recipes
 226cba4fc46c5ff9e63859a23943c3fcd7975861 data\backpackorganizer\advancement\recipes\misc\storagemanager.json
 1167df56b8adc998162cff9b948a1f4330da88e8 data\backpackorganizer\recipe\storagemanager.json
+22c5f2756b99eebdf08273f418892850ecf9b306 data\backpackorganizer\recipe\storagemanager_copper.json
+76cd24b2aa6a4394e09654652d29b78861df8c62 data\backpackorganizer\advancement\recipes\misc\storagemanager_copper.json

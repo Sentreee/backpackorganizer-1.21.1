@@ -18,6 +18,7 @@ public class ModItemGroups {
                     .displayName(Text.translatable("itemgroup.backpackorganizer.backpack_items"))
                     .entries((displayContext, entries) -> {
                         entries.add(ModItems.STORAGEMANAGER);
+                        entries.add(ModItems.STORAGEMANAGER_COPPER);
 
                     }).build());
 
