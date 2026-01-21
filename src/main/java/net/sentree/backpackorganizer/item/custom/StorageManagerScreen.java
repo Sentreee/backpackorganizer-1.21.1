@@ -1,4 +1,4 @@
-package net.sentree.backpackorganizer.item.basic;
+package net.sentree.backpackorganizer.item.custom;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -23,6 +23,12 @@ public class StorageManagerScreen extends HandledScreen<StorageManagerScreenHand
     private static final Identifier COPPER_TEX =
             Identifier.of(Backpackorganizer.MOD_ID, "textures/gui/container/storagemanager_copper.png");
 
+    private static final Identifier IRON_TEX =
+            Identifier.of(Backpackorganizer.MOD_ID, "textures/gui/container/storagemanager_iron.png");
+
+    private static final Identifier DIAMOND_TEX =
+            Identifier.of(Backpackorganizer.MOD_ID, "textures/gui/container/storagemanager_diamond.png");
+
     public StorageManagerScreen(StorageManagerScreenHandler handler, PlayerInventory inv, Text title) {
         super(handler, inv, title);
 
@@ -36,6 +42,8 @@ public class StorageManagerScreen extends HandledScreen<StorageManagerScreenHand
     private Identifier getTexture() {
         ItemStack manager = this.handler.getManagerStack();
         if (manager.isOf(ModItems.STORAGEMANAGER_COPPER)) return COPPER_TEX;
+        if (manager.isOf(ModItems.STORAGEMANAGER_IRON)) return IRON_TEX;
+        if (manager.isOf(ModItems.STORAGEMANAGER_DIAMOND)) return DIAMOND_TEX;
         return BASIC_TEX;
     }
 
@@ -50,7 +58,7 @@ public class StorageManagerScreen extends HandledScreen<StorageManagerScreenHand
         int baseX = this.x + this.backgroundWidth + 4;
         int baseY = this.y + 6;
 
-        int rowsPerCol = 3; // good for 6 tabs (manager+5)
+        int rowsPerCol = 5;
 
         for (int idx = 0; idx < totalTabs; idx++) {
             final int tabIndex = (idx == 0) ? -1 : (idx - 1);

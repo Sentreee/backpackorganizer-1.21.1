@@ -38,5 +38,25 @@ public class BackpackOrganizerRecipeProvider extends FabricRecipeProvider {
                 .input('B', Items.COPPER_BLOCK)
                 .criterion(hasItem(ModItems.STORAGEMANAGER), conditionsFromItem(ModItems.STORAGEMANAGER))
                 .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.STORAGEMANAGER_IRON)
+                .pattern("IBI")
+                .pattern("I^I")
+                .pattern("III")
+                .input('^', ModItems.STORAGEMANAGER_COPPER)
+                .input('I', Items.IRON_INGOT)
+                .input('B', Items.IRON_BLOCK)
+                .criterion(hasItem(ModItems.STORAGEMANAGER_COPPER), conditionsFromItem(ModItems.STORAGEMANAGER_COPPER))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.STORAGEMANAGER_DIAMOND)
+                .pattern("DBD")
+                .pattern("D^D")
+                .pattern("DDD")
+                .input('^', ModItems.STORAGEMANAGER_IRON)
+                .input('D', Items.DIAMOND)
+                .input('B', Items.DIAMOND_BLOCK)
+                .criterion(hasItem(ModItems.STORAGEMANAGER_IRON), conditionsFromItem(ModItems.STORAGEMANAGER_IRON))
+                .offerTo(exporter);
     }
 }

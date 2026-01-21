@@ -1,4 +1,4 @@
-package net.sentree.backpackorganizer.item.basic;
+package net.sentree.backpackorganizer.item.custom;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -63,6 +63,34 @@ public class StorageManagerScreenHandler extends ScreenHandler {
         if (slots == 5) {
             int[] xs = {44, 62, 80, 98, 116};
             for (int i = 0; i < 5; i++) {
+                final int slot = i;
+                this.addSlot(new Slot(organizerInv, slot, xs[i], y) {
+                    @Override
+                    public boolean canInsert(ItemStack stack) {
+                        return StorageManagerItem.isAllowedStoredItem(stack);
+                    }
+                });
+            }
+            return;
+        }
+
+        if (slots == 7) {
+            int[] xs = {26, 44, 62, 80, 98, 116, 134};
+            for (int i = 0; i < 7; i++) {
+                final int slot = i;
+                this.addSlot(new Slot(organizerInv, slot, xs[i], y) {
+                    @Override
+                    public boolean canInsert(ItemStack stack) {
+                        return StorageManagerItem.isAllowedStoredItem(stack);
+                    }
+                });
+            }
+            return;
+        }
+
+        if (slots == 9) {
+            int[] xs = {8, 26, 44, 62, 80, 98, 116, 134, 152};
+            for (int i = 0; i < 9; i++) {
                 final int slot = i;
                 this.addSlot(new Slot(organizerInv, slot, xs[i], y) {
                     @Override

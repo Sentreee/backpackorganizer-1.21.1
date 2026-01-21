@@ -2,9 +2,10 @@
   "item.backpackorganizer.storagemanager": "Storage Manager",
   "item.backpackorganizer.storagemanager_copper": "Copper Storage Manager",
   "item.backpackorganizer.storagemanager_iron": "Iron Storage Manager",
+  "item.backpackorganizer.storagemanager_diamond": "Diamond Storage Manager",
 
   "itemgroup.backpackorganizer.backpack_items": "Storage Management",
 
   "screen.backpackorganizer.tab.storagemanager": "Storage Manager",
-  "screen.backpackorganizer.tab.empty": "Empty Slot %s"
+  "screen.backpackorganizer.tab.empty": "Empty Slot"
 }

@@ -10,9 +10,9 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.sentree.backpackorganizer.Backpackorganizer;
-import net.sentree.backpackorganizer.item.basic.StorageManagerCodecs;
-import net.sentree.backpackorganizer.item.basic.StorageManagerContainerScreenHandler;
-import net.sentree.backpackorganizer.item.basic.StorageManagerScreenHandler;
+import net.sentree.backpackorganizer.item.custom.StorageManagerCodecs;
+import net.sentree.backpackorganizer.item.custom.StorageManagerContainerScreenHandler;
+import net.sentree.backpackorganizer.item.custom.StorageManagerScreenHandler;
 
 public final class ModScreenHandlers {
     private ModScreenHandlers() {}

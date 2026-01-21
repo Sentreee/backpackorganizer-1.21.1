@@ -5,9 +5,9 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
-import net.sentree.backpackorganizer.item.basic.StorageManagerInventory;
-import net.sentree.backpackorganizer.item.basic.StorageManagerItem;
-import net.sentree.backpackorganizer.item.basic.StorageManagerScreens;
+import net.sentree.backpackorganizer.item.custom.StorageManagerInventory;
+import net.sentree.backpackorganizer.item.custom.StorageManagerItem;
+import net.sentree.backpackorganizer.item.custom.StorageManagerScreens;
 
 public final class ModNetworking {
     private ModNetworking() {}

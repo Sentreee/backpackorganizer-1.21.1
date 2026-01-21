@@ -1,4 +1,4 @@
-package net.sentree.backpackorganizer.item.basic;
+package net.sentree.backpackorganizer.item.custom;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -44,6 +44,9 @@ public class StorageManagerContainerScreenHandler extends ScreenHandler {
                 });
             }
         }
+
+
+
 
         // --- Player inventory ---
         int invY = 18 + rows * 18 + 14;

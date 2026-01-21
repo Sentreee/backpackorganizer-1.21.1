@@ -1,4 +1,4 @@
-package net.sentree.backpackorganizer.item.basic;
+package net.sentree.backpackorganizer.item.custom;
 
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.component.DataComponentTypes;

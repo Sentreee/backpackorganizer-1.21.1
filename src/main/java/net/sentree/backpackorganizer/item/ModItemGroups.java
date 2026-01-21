@@ -19,6 +19,8 @@ public class ModItemGroups {
                     .entries((displayContext, entries) -> {
                         entries.add(ModItems.STORAGEMANAGER);
                         entries.add(ModItems.STORAGEMANAGER_COPPER);
+                        entries.add(ModItems.STORAGEMANAGER_IRON);
+                        entries.add(ModItems.STORAGEMANAGER_DIAMOND);
 
                     }).build());
 

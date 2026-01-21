@@ -1,4 +1,4 @@
-package net.sentree.backpackorganizer.item.basic;
+package net.sentree.backpackorganizer.item.custom;
 
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ContainerComponent;

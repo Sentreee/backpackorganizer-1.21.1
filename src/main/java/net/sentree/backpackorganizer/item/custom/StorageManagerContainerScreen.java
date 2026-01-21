@@ -1,4 +1,4 @@
-package net.sentree.backpackorganizer.item.basic;
+package net.sentree.backpackorganizer.item.custom;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -44,7 +44,7 @@ public class StorageManagerContainerScreen extends HandledScreen<StorageManagerC
 
         // With 5 slots => 6 tabs. Use 3 rows per column (2 columns) like we discussed.
         // For other sizes, still works decently.
-        int rowsPerCol = 3;
+        int rowsPerCol = 5;
         int cols = (totalTabs + rowsPerCol - 1) / rowsPerCol;
 
         for (int idx = 0; idx < totalTabs; idx++) {
