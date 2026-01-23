@@ -12,21 +12,27 @@ public class StorageManagerScreenHandler extends ScreenHandler {
     private final Hand hand;
     private final StorageManagerInventory organizerInv;
     private final ItemStack managerStack;
+    private final int managerSlots;
 
-    public StorageManagerScreenHandler(int syncId, PlayerInventory playerInv, Hand hand) {
+    /**
+     * ✅ NEW: use this constructor for BOTH server+client.
+     * The slots value MUST come from opening data (sent by server),
+     * so the client never "guesses" size from its local held stack.
+     */
+    public StorageManagerScreenHandler(int syncId, PlayerInventory playerInv, Hand hand, int managerSlots) {
         super(ModScreenHandlers.STORAGEMANAGER, syncId);
         this.hand = hand;
 
         this.managerStack = playerInv.player.getStackInHand(hand);
-        this.organizerInv = new StorageManagerInventory(playerInv.player, hand);
+        this.managerSlots = Math.max(1, managerSlots);
 
-        int slots = organizerInv.size();
+        // ✅ IMPORTANT: inventory size is forced from network-provided slot count
+        this.organizerInv = new StorageManagerInventory(playerInv.player, hand, this.managerSlots);
 
         // --- Organizer slots (match your custom textures) ---
-        addOrganizerSlots(slots);
+        addOrganizerSlots(this.managerSlots);
 
         // --- Player inventory + hotbar (standard 166px-tall GUI positions) ---
-        // These match vanilla "generic_54" inventory region positions for 166-height screens
         int invY = 84;
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 9; col++) {
@@ -40,10 +46,22 @@ public class StorageManagerScreenHandler extends ScreenHandler {
         }
     }
 
-    private void addOrganizerSlots(int slots) {
-        // If you add more tiers later, expand this switch.
-        // The coordinates here should match your GUI PNG slot holes.
+    /**
+     * OPTIONAL: keep this ONLY if you still have old code calling (syncId, inv, hand).
+     * It’s safe on the SERVER, but you should update your openHandledScreen factory
+     * to pass slots so everything is consistent.
+     */
+    @Deprecated
+    public StorageManagerScreenHandler(int syncId, PlayerInventory playerInv, Hand hand) {
+        this(syncId, playerInv, hand, computeSlotsFromHeld(playerInv.player.getStackInHand(hand)));
+    }
 
+    private static int computeSlotsFromHeld(ItemStack held) {
+        if (held.getItem() instanceof StorageManagerItem sm) return sm.getSlots();
+        return 3;
+    }
+
+    private void addOrganizerSlots(int slots) {
         int y = 20;
 
         if (slots == 3) {
@@ -102,7 +120,7 @@ public class StorageManagerScreenHandler extends ScreenHandler {
             return;
         }
 
-        // Fallback: lay out in a row starting at x=8 (for future tiers)
+        // Fallback: lay out in a row starting at x=8
         for (int i = 0; i < slots; i++) {
             int x = 8 + (i * 18);
             this.addSlot(new Slot(organizerInv, i, x, y) {
@@ -118,7 +136,7 @@ public class StorageManagerScreenHandler extends ScreenHandler {
     public Hand getHand() { return hand; }
     public StorageManagerInventory getOrganizerInv() { return organizerInv; }
     public ItemStack getManagerStack() { return managerStack; }
-    public int getManagerSlots() { return organizerInv.size(); }
+    public int getManagerSlots() { return managerSlots; }
 
     @Override
     public boolean canUse(PlayerEntity player) {
@@ -130,7 +148,7 @@ public class StorageManagerScreenHandler extends ScreenHandler {
         ItemStack newStack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
 
-        int managerSlots = organizerInv.size();
+        int managerSlots = this.managerSlots;
         int playerInvStart = managerSlots;
         int playerInvEnd = this.slots.size();
 
@@ -144,7 +162,7 @@ public class StorageManagerScreenHandler extends ScreenHandler {
                     return ItemStack.EMPTY;
                 }
             } else {
-                // Player -> Manager (respect allowlist)
+                // Player -> Manager
                 if (!StorageManagerItem.isAllowedStoredItem(original)) {
                     return ItemStack.EMPTY;
                 }

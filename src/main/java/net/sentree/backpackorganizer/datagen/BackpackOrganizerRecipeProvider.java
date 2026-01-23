@@ -2,22 +2,31 @@ package net.sentree.backpackorganizer.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.minecraft.data.server.recipe.ComplexRecipeJsonBuilder;
 import net.minecraft.data.server.recipe.RecipeExporter;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.util.Identifier;
+import net.sentree.backpackorganizer.Backpackorganizer;
 import net.sentree.backpackorganizer.item.ModItems;
+
+import net.sentree.backpackorganizer.recipe.UpgradeToCopperStorageManagerRecipe;
+import net.sentree.backpackorganizer.recipe.UpgradeToIronStorageManagerRecipe;
+import net.sentree.backpackorganizer.recipe.UpgradeToDiamondStorageManagerRecipe;
 
 import java.util.concurrent.CompletableFuture;
 
 public class BackpackOrganizerRecipeProvider extends FabricRecipeProvider {
-    public BackpackOrganizerRecipeProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+    public BackpackOrganizerRecipeProvider(FabricDataOutput output,
+                                           CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
         super(output, registriesFuture);
     }
 
     @Override
     public void generate(RecipeExporter exporter) {
+        // basic manager stays normal shaped
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.STORAGEMANAGER)
                 .pattern("EEE")
                 .pattern("PSP")
@@ -29,34 +38,17 @@ public class BackpackOrganizerRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.OBSIDIAN), conditionsFromItem(Items.OBSIDIAN))
                 .offerTo(exporter);
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.STORAGEMANAGER_COPPER)
-                .pattern("CBC")
-                .pattern("C^C")
-                .pattern("CCC")
-                .input('^', ModItems.STORAGEMANAGER)
-                .input('C', Items.COPPER_INGOT)
-                .input('B', Items.COPPER_BLOCK)
-                .criterion(hasItem(ModItems.STORAGEMANAGER), conditionsFromItem(ModItems.STORAGEMANAGER))
-                .offerTo(exporter);
+        // upgrades become special recipes (these will COPY components/NBT)
+        ComplexRecipeJsonBuilder
+                .create(UpgradeToCopperStorageManagerRecipe::new)
+                .offerTo(exporter, Identifier.of(Backpackorganizer.MOD_ID, "upgrade_to_copper_storage_manager"));
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.STORAGEMANAGER_IRON)
-                .pattern("IBI")
-                .pattern("I^I")
-                .pattern("III")
-                .input('^', ModItems.STORAGEMANAGER_COPPER)
-                .input('I', Items.IRON_INGOT)
-                .input('B', Items.IRON_BLOCK)
-                .criterion(hasItem(ModItems.STORAGEMANAGER_COPPER), conditionsFromItem(ModItems.STORAGEMANAGER_COPPER))
-                .offerTo(exporter);
+        ComplexRecipeJsonBuilder
+                .create(UpgradeToIronStorageManagerRecipe::new)
+                .offerTo(exporter, Identifier.of(Backpackorganizer.MOD_ID, "upgrade_to_iron_storage_manager"));
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.STORAGEMANAGER_DIAMOND)
-                .pattern("DBD")
-                .pattern("D^D")
-                .pattern("DDD")
-                .input('^', ModItems.STORAGEMANAGER_IRON)
-                .input('D', Items.DIAMOND)
-                .input('B', Items.DIAMOND_BLOCK)
-                .criterion(hasItem(ModItems.STORAGEMANAGER_IRON), conditionsFromItem(ModItems.STORAGEMANAGER_IRON))
-                .offerTo(exporter);
+        ComplexRecipeJsonBuilder
+                .create(UpgradeToDiamondStorageManagerRecipe::new)
+                .offerTo(exporter, Identifier.of(Backpackorganizer.MOD_ID, "upgrade_to_diamond_storage_manager"));
     }
 }

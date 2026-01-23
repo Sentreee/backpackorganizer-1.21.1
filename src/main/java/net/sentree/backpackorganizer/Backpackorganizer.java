@@ -5,6 +5,7 @@ import net.fabricmc.api.ModInitializer;
 import net.sentree.backpackorganizer.item.ModItemGroups;
 import net.sentree.backpackorganizer.item.ModItems;
 import net.sentree.backpackorganizer.network.ModNetworking;
+import net.sentree.backpackorganizer.recipe.ModRecipeSerializers;
 import net.sentree.backpackorganizer.util.ModScreenHandlers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,5 +23,7 @@ public class Backpackorganizer implements ModInitializer {
 		ModScreenHandlers.register();
 
 		ModNetworking.register();
+
+		ModRecipeSerializers.register();
 	}
 }
